@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Req, Res } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query, Req, Res } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { CreateUserDto } from 'src/users/dtos/CreateUser.dto';
 
@@ -7,6 +7,14 @@ export class UsersController {
 
     @Get()
     getUsers() {
+        return { username: 'yasiru', email: 'yasiru@gmail.com' }
+    }
+
+    //Query Parameter
+    //this use for filtering results
+    @Get('query')
+    getUsersQuaryParams(@Query('sortBy') sortBy: string) {
+        console.log(sortBy)
         return { username: 'yasiru', email: 'yasiru@gmail.com' }
     }
 
@@ -55,7 +63,7 @@ export class UsersController {
     //     ];
     // }
 
-    // //Combining with express frameword
+    // //Combining with express framework
     // @Post('create')
     // createUser(@Req() request:Request, @Res() response:Response ){
     //     console.log(request.body);
@@ -67,4 +75,26 @@ export class UsersController {
         console.log(userData);
         return {};
     }
+
+    // //Combining with express framework
+    // @Get(':id')
+    // getUserById(@Req() request:Request, @Res() response:Response){
+    //     console.log(request.params);
+    //     response.send('');
+    // }
+
+    @Get(':id')
+    getUserById(@Param('id') id:string){
+        console.log(id);
+        return {id}
+    }
+
+    // //Pass two id's to params
+    // @Get(':id/:postId')
+    // getUserByIdAndPostId(@Param('id') id:string, @Param('postId') postId:string){
+    //     console.log(id);
+    //     return {id, postId}
+    // }
+
+    
 }
