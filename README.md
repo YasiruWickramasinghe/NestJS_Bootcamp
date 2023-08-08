@@ -26,6 +26,18 @@
 
 Accelerate your backend development skills with a focused Crash Course on NestJS. Learn modular architecture, dependency injection, controllers, and services. Dive into practical examples for building robust server-side applications. Level up your NestJS expertise today!
 
+## Tutorial 1
+
+### Resource
+
+Youtube :  Anson the Developer
+
+## Tutorial 2
+
+### Resource
+
+Youtube :  Sakura Dev
+
 ## Installation
 
 ```bash
@@ -57,6 +69,5 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
-## Resource
-Youtube :  Anson the Developer
+
 
