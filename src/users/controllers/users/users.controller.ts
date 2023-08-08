@@ -1,14 +1,20 @@
-import { Body, Controller, Get, Param, ParseBoolPipe, ParseIntPipe, Post, Query, Req, Res, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Get, HttpException, HttpStatus, Param, ParseBoolPipe, ParseIntPipe, Post, Query, Req, Res, UsePipes, ValidationPipe } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { CreateUserDto } from 'src/users/dtos/CreateUser.dto';
+import { UsersService } from 'src/users/services/users/users.service';
 
 @Controller('users')
 export class UsersController {
 
+    //Inject Services
+    constructor(private userServise : UsersService){
+
+    }
+
     //Get  Method
         @Get()
         getUsers() {
-            return { username: 'yasiru', email: 'yasiru@gmail.com' }
+            return this.userServise.fetchUsers();
         }
 
         //Query Parameter
@@ -90,12 +96,22 @@ export class UsersController {
         //Add Validation
         //npm i --save class-validator class-transformer
 
-            @Post('create')
-            @UsePipes(new ValidationPipe())
-            createUser(@Body() userData:CreateUserDto){
-                console.log(userData);
-                return {};
-            }
+            // @Post('create')
+            // @UsePipes(new ValidationPipe())
+            // createUser(@Body() userData:CreateUserDto){
+            //     console.log(userData);
+            //     return {};
+            // }
+
+            //add Service injection
+
+                @Post('create')
+                @UsePipes(new ValidationPipe())
+                createUser(@Body() userData:CreateUserDto){
+                    console.log(userData);
+                    return this.userServise.createUsers(userData);
+                   
+                }
 
     //Get User by Id Method
 
@@ -115,11 +131,21 @@ export class UsersController {
         //Add Validation
         //id should be number becourse we use parseintpipe
         
-            @Get(':id')
-            getUserById(@Param('id', ParseIntPipe) id:number){
-                console.log(id);
-                return {id}
-            }
+            // @Get(':id')
+            // getUserById(@Param('id', ParseIntPipe) id:number){
+            //     console.log(id);
+            //     return {id}
+            // }
+
+             //add Service injection
+
+                @Get(':id')
+                getUserById(@Param('id', ParseIntPipe) id:number){
+                    // return this.userServise.fetchUserById(id);
+                    const user = this.userServise.fetchUserById(id);
+                    if (!user) throw new HttpException('User not Found', HttpStatus.BAD_REQUEST);
+                    return user
+                }
 
         // //Pass two id's to params
         // @Get(':id/:postId')
