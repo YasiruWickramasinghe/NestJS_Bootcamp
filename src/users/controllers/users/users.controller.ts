@@ -1,6 +1,7 @@
 import { Body, Controller, Get, HttpException, HttpStatus, Param, ParseBoolPipe, ParseIntPipe, Post, Query, Req, Res, UsePipes, ValidationPipe } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { CreateUserDto } from 'src/users/dtos/CreateUser.dto';
+import { ValidateCreateUserPipe } from 'src/users/pipes/validate-create-user/validate-create-user.pipe';
 import { UsersService } from 'src/users/services/users/users.service';
 
 @Controller('users')
@@ -105,13 +106,23 @@ export class UsersController {
 
             //add Service injection
 
-                @Post('create')
-                @UsePipes(new ValidationPipe())
-                createUser(@Body() userData:CreateUserDto){
-                    console.log(userData);
-                    return this.userServise.createUsers(userData);
+                // @Post('create')
+                // @UsePipes(new ValidationPipe())
+                // createUser(@Body() userData:CreateUserDto){
+                //     console.log(userData);
+                //     return this.userServise.createUsers(userData);
                    
-                }
+                // }
+
+                // add pipes
+
+                    @Post('create')
+                    @UsePipes(new ValidationPipe())
+                    createUser(@Body() userData:CreateUserDto){
+                        //console.log(userData.age.toPrecision());
+                        console.log(userData);
+                        return this.userServise.createUsers(userData);
+                    }
 
     //Get User by Id Method
 
