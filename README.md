@@ -2,6 +2,10 @@
 
 Accelerate your backend development skills with a focused Crash Course on NestJS. Learn modular architecture, dependency injection, controllers, and services. Dive into practical examples for building robust server-side applications. Level up your NestJS expertise today!
 
+## Run
+
+localhost:5000
+
 # Course 1
 
 ### Resource
