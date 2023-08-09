@@ -18,6 +18,12 @@ Youtube :  Anson the Developer
 
 Youtube :  Sakura Dev
 
+# Course 3
+
+### Resource
+
+Youtube :  Anson the Developer - nestJS, MySQL, TypeORM
+
 ## Installation
 
 ```bash
