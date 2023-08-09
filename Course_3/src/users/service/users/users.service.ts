@@ -18,7 +18,7 @@ export class UsersService {
       ) {}
 
     findUsers(){
-        return this.usersRepository.find()
+        return this.usersRepository.find({relations: ['profile']})
 
     }
 
