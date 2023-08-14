@@ -8,21 +8,19 @@ localhost:5000
 
 # Course 1
 
-### Resource
-
-Youtube :  Anson the Developer
+Youtube : Anson the Developer
 
 # Course 2
 
-### Resource
-
-Youtube :  Sakura Dev
+Youtube : Sakura Dev
 
 # Course 3
 
-### Resource
+Youtube : Anson the Developer - nestJS, MySQL, TypeORM
 
-Youtube :  Anson the Developer - nestJS, MySQL, TypeORM
+# Course 3
+
+Youtube : Nest JS Backend API | Full Developer Course By Voxmind
 
 ## Installation
 
