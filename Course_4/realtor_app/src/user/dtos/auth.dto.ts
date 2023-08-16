@@ -6,7 +6,7 @@ export class SignUpDto {
     @IsNotEmpty()
     name: string;
 
-    @Matches(/((\+*)((0[ -]*)*|((91 )*))((\d{12})+|(\d{10})+))|\d{5}([- ]*)\d{6}/, { message: "phone must be a valid phone number"})
+    @Matches(/((\+*)((0[ -]*)*|((91 )*))((\d{12})+|(\d{10})+))|\d{5}([- ]*)\d{6}/, { message: "phone must be a valid phone number" })
     phone: string;
 
     @IsEmail()
@@ -14,5 +14,14 @@ export class SignUpDto {
 
     @IsString()
     @MinLength(5)
+    password: string;
+}
+
+export class SignInDto {
+
+    @IsEmail()
+    email: string;
+
+    @IsString()
     password: string;
 }
