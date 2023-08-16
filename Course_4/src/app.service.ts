@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ReportType, data } from './database/data';
 import { v4 as uuid } from "uuid"
+import { ReportResponseDto } from './dtos/reports.dto';
 
 //initialize body types
 interface Report {
@@ -17,15 +18,26 @@ interface UpdateReport {
 @Injectable()
 export class AppService {
 
-  getAllReports(type: ReportType) {
-    return data.report.filter((report) => report.type === type);
+  //Get All reports
+  getAllReports(type: ReportType): ReportResponseDto[] {
+    return data.report
+      .filter((report) => report.type === type)
+      .map((report) => new ReportResponseDto(report))
   }
+  
+  //Get Report by report ID
+  getReportById(type: ReportType, id: string): ReportResponseDto {
+    const report = data.report
+      .filter((report) => report.type === type)
+      .find(report => report.id === id)
 
-  getReportById(type: ReportType, id: string) {
-    return data.report.filter((report) => report.type === type).find(report => report.id === id)
+      if(!report) return;
+
+      return new ReportResponseDto(report);
   }
-
-  createReport(type: ReportType, { amount, source }: Report) {
+  
+  //Create new Report
+  createReport(type: ReportType, { amount, source }: Report): ReportResponseDto {
     const newReport = {
       id: uuid(),
       source,
@@ -35,18 +47,22 @@ export class AppService {
       type,
     }
     data.report.push(newReport)
-    return newReport;
+    return new ReportResponseDto(newReport);
   }
-
-  updateReport(type: ReportType, id: string, body: UpdateReport) {
+  
+  //Update report related to specific ID
+  updateReport(type: ReportType, id: string, body: UpdateReport): ReportResponseDto {
     //find id to update
-    const reportToUpdate = data.report.filter((report) => report.type === type).find(report => report.id === id)
+    const reportToUpdate = data.report
+      .filter((report) => report.type === type)
+      .find(report => report.id === id)
 
     //if report not exist
     if (!reportToUpdate) return;
 
     //find index to update the data in array
-    const reportIndex = data.report.findIndex((report) => report.id === reportToUpdate.id)
+    const reportIndex = data.report
+      .findIndex((report) => report.id === reportToUpdate.id)
 
     data.report[reportIndex] = {
       ...data.report[reportIndex],
@@ -54,12 +70,15 @@ export class AppService {
       updated_at: new Date()
     }
 
-    return data.report[reportIndex]
+    return new ReportResponseDto(data.report[reportIndex]);
   }
 
+
+  //Delete Report related to specific ID
   deleteReport(id: string) {
     //find index to delete the data in array
-    const reportIndex = data.report.findIndex((report) => report.id === id)
+    const reportIndex = data.report
+      .findIndex((report) => report.id === id)
 
     //if report not exist
     if (reportIndex === -1) return;

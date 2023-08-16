@@ -10,7 +10,12 @@ async function bootstrap() {
     //Ensure validationPipe is globally available
     new ValidationPipe({
       //if anything not define in dto this will clear that additional property
-      whitelist: true
+      whitelist: true,
+      //give ability to transform object
+      transform: true,
+      transformOptions: {
+        enableImplicitConversion: true
+      }
     })
   )
   await app.listen(5000);
